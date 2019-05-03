@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -9,6 +10,7 @@ namespace TrashCollector.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
+        public string UserRole { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -22,6 +24,7 @@ namespace TrashCollector.Models
     {
         public DbSet<Customer>Customers { get; set; }
         public DbSet<Employee> Employees { get; set; }
+        
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
@@ -31,5 +34,11 @@ namespace TrashCollector.Models
         {
             return new ApplicationDbContext();
         }
+
+        internal object Include(Func<object, object> p)
+        {
+            throw new NotImplementedException();
+        }
     }
+ 
 }
