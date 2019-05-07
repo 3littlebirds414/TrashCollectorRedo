@@ -41,9 +41,8 @@ namespace TrashCollector.Controllers
         // GET: Customer/Create
         public ActionResult Create()
         {
-            ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "UserRole");
-            //Customer customer = new Customer();
-            return View();
+            Customer customer = new Customer();
+            return View(customer);
         }
 
         // POST: Customer/Create

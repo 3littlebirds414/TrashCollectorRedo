@@ -11,21 +11,15 @@ namespace TrashCollector.Controllers
     public class EmployeeController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        //ApplicationDbContext context;
-        //public EmployeeController()
-        //{
-        //    context = new ApplicationDbContext();
-        //}
+
         // GET: Employee
         public ActionResult Index()
         {
-            //Natalie: build out this EE home with list of all pickups for today
             var pickUpsToday = DateTime.Now.DayOfWeek.ToString();
-            //Natalie: Use Today and ZipCode
+            ViewBag.DayOfWeek = pickUpsToday;
             //Natalie: ????Add drop down list to filter by other days here
             var currentUserId = User.Identity.GetUserId();
             var me = db.Employees.Where(e => e.ApplicationUserId == currentUserId).FirstOrDefault();
-
             var zoneCustomers = db.Customers.Where(c => c.ZipCode == me.ZipCode && c.PickUpDay == pickUpsToday);
             return View(zoneCustomers.ToList());
 
@@ -37,22 +31,30 @@ namespace TrashCollector.Controllers
             //Natalie: Details on Cust profile, see address with pin using Google API
             //Natalie: ????ability to reference Cust table and confirm PU
             //Natalie:  ????Add button here to place charge on Customer's account after PU confirmation
-            return View();
+            var currentUserId = User.Identity.GetUserId();
+            var employee = db.Employees.Where(e => e.ApplicationUserId == currentUserId).FirstOrDefault();
+            return View(employee);
         }
 
         // GET: Employee/Create
         public ActionResult Create()
         {
-            return View();
+            Employee employee = new Employee();
+            return View(employee);
         }
 
         // POST: Employee/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Employee employee)
         {
             try
             {
-                // TODO: Add insert logic here
+                // get current user Id
+                //attach that to the employee
+                var currentUserId = User.Identity.GetUserId();
+                employee.ApplicationUserId = currentUserId;
+                db.Employees.Add(employee);
+                db.SaveChanges();
 
                 return RedirectToAction("Index");
             }
