@@ -3,7 +3,7 @@ namespace TrashCollector.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialMigration : DbMigration
+    public partial class Thing6 : DbMigration
     {
         public override void Up()
         {
@@ -19,7 +19,8 @@ namespace TrashCollector.Migrations
                         City = c.String(),
                         State = c.String(),
                         ZipCode = c.Int(nullable: false),
-                        PickUpDay = c.String(),
+                        PickUpDayIds = c.Int(nullable: false),
+                        DayOfWeek = c.String(),
                         PickUpComplete = c.Boolean(nullable: false),
                         CustomPickUp = c.String(),
                         PickUpStart = c.String(),
@@ -28,13 +29,16 @@ namespace TrashCollector.Migrations
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUserId)
-                .Index(t => t.ApplicationUserId);
+                .ForeignKey("dbo.PickUpDays", t => t.PickUpDayIds, cascadeDelete: true)
+                .Index(t => t.ApplicationUserId)
+                .Index(t => t.PickUpDayIds);
             
             CreateTable(
                 "dbo.AspNetUsers",
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
+                        UserRole = c.String(),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),
@@ -89,6 +93,15 @@ namespace TrashCollector.Migrations
                 .Index(t => t.RoleId);
             
             CreateTable(
+                "dbo.PickUpDays",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        DayOfWeek = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
                 "dbo.Employees",
                 c => new
                     {
@@ -97,10 +110,13 @@ namespace TrashCollector.Migrations
                         FirstName = c.String(),
                         ZipCode = c.Int(nullable: false),
                         TodaysPickUp = c.String(),
+                        PickUpDayId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUserId)
-                .Index(t => t.ApplicationUserId);
+                .ForeignKey("dbo.PickUpDays", t => t.PickUpDayId, cascadeDelete: true)
+                .Index(t => t.ApplicationUserId)
+                .Index(t => t.PickUpDayId);
             
             CreateTable(
                 "dbo.AspNetRoles",
@@ -117,21 +133,26 @@ namespace TrashCollector.Migrations
         public override void Down()
         {
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("dbo.Employees", "PickUpDayId", "dbo.PickUpDays");
             DropForeignKey("dbo.Employees", "ApplicationUserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Customers", "PickUpDayIds", "dbo.PickUpDays");
             DropForeignKey("dbo.Customers", "ApplicationUserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropIndex("dbo.Employees", new[] { "PickUpDayId" });
             DropIndex("dbo.Employees", new[] { "ApplicationUserId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
+            DropIndex("dbo.Customers", new[] { "PickUpDayIds" });
             DropIndex("dbo.Customers", new[] { "ApplicationUserId" });
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.Employees");
+            DropTable("dbo.PickUpDays");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");

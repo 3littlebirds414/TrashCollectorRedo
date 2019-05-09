@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace TrashCollector.Models
 {
@@ -22,7 +23,16 @@ namespace TrashCollector.Models
         public string City { get; set; }
         public string State { get; set; }
         public int ZipCode { get; set; }
-        public string PickUpDay { get; set; }
+
+
+        [ForeignKey("PickUpDay")]
+        public int PickUpDayId { get; set; }
+        public PickUpDay PickUpDay { get; set; }
+        public IEnumerable <PickUpDay> PickUpDays { get; set;}
+    
+
+        public string DayOfWeek { get; set; }
+
         public bool PickUpComplete { get; set; }
         public string CustomPickUp { get; set; }
         public string PickUpStart { get; set; }

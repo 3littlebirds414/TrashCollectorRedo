@@ -20,8 +20,9 @@ namespace TrashCollector.Controllers
             //Natalie: ????Add drop down list to filter by other days here
             var currentUserId = User.Identity.GetUserId();
             var me = db.Employees.Where(e => e.ApplicationUserId == currentUserId).FirstOrDefault();
-            var zoneCustomers = db.Customers.Where(c => c.ZipCode == me.ZipCode && c.PickUpDay == pickUpsToday);
-            return View(zoneCustomers.ToList());
+            var zoneCustomers = db.Customers.Where(c => c.ZipCode == me.ZipCode && c.PickUpDay.DayOfWeek == pickUpsToday).ToList();
+
+            return View(zoneCustomers);
 
         }
 
@@ -67,12 +68,14 @@ namespace TrashCollector.Controllers
         // GET: Employee/Edit/5
         public ActionResult Edit(int id)
         {
+            ViewBag.PickUpDayId = new SelectList(db.PickUpDays, "PickUpDayId", "DayOfWeek");
+
             return View();
         }
 
         // POST: Employee/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, Employee employee)
         {
             try
             {

@@ -19,5 +19,10 @@ namespace TrashCollector.Models
         public string FirstName { get; set; }
         public int ZipCode { get; set; }
         public string TodaysPickUp { get; set; }
+
+        [ForeignKey("PickUpDay")]
+        public int PickUpDayId { get; set; }
+        public PickUpDay PickUpDay { get; set; }
+
     }
 }

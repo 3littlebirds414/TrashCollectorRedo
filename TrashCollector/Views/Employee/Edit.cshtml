@@ -1,28 +1,29 @@
 ﻿@model TrashCollector.Models.Customer
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Edit";
 }
 
-<h2>Create</h2>
+<h2>Edit</h2>
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    @Html.HiddenFor(model => model.CustomerBill)
-
+    
     <div class="form-horizontal">
         <h4>Customer</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
+        @Html.HiddenFor(model => model.Id)
+
+        @*<div class="form-group">
             @Html.LabelFor(model => model.ApplicationUserId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.ApplicationUserId, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ApplicationUserId, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -73,15 +74,23 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.PickUpDayId, "Pick Up Day #", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.PickUpDayId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.PickUpDayId, new SelectList(Model.PickUpDays, "Id", "DayOfWeek"), "", new { @class = "form-control" })
+                @Html.DropDownList("PickUpDayId",null, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.PickUpDayId, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.PickUpComplete, "Pick Up Complete?", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.DayOfWeek, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DayOfWeek, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DayOfWeek, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PickUpComplete, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
                     @Html.EditorFor(model => model.PickUpComplete)
@@ -91,7 +100,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.CustomPickUp, "Custom Pick Up", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.CustomPickUp, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.CustomPickUp, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.CustomPickUp, "", new { @class = "text-danger" })
@@ -99,7 +108,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.PickUpStart, "Pick Up Start:", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.PickUpStart, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.PickUpStart, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.PickUpStart, "", new { @class = "text-danger" })
@@ -107,24 +116,24 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.PickUpEnd, "Pick Up End:", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.PickUpEnd, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.PickUpEnd, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.PickUpEnd, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.CustomerBill, "Customer Bill:", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.CustomerBill, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.CustomerBill, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.CustomerBill, "", new { @class = "text-danger" })
             </div>
-        </div>*@
+        </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </div>
     </div>

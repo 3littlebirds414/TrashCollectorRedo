@@ -41,13 +41,20 @@ namespace TrashCollector.Controllers
         // GET: Customer/Create
         public ActionResult Create()
         {
-            Customer customer = new Customer();
+            var WeekDays = db.PickUpDays.ToList();
+            Customer customer = new Customer()
+            {
+                PickUpDays = WeekDays
+            };
+            //Mike's snippet
+            //ViewBag.PickUpDayId = new (db.PickUpDays, "PickUpDayId", "DayOfWeek");
+            //Natalie: mine
             return View(customer);
         }
 
         // POST: Customer/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include ="Id,FirstName,LastName,Street,City,State,ZipCode,PickUpDay,PickUpComplete,CustomPickUp,PickUpStart,PicUpEnd")]Customer customer)
+        public ActionResult Create([Bind(Include = "FirstName, LastName, Street, City, State, ZipCode, PickUpDayId, DayOfWeek, PickUpComplete, CustomPickUp, PickUpStart, PickUpEnd, CustomerBill")] Customer customer)
         {
             try
             {
@@ -55,7 +62,6 @@ namespace TrashCollector.Controllers
                 db.Customers.Add(customer);
                 db.SaveChanges();
                 ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "UserRole", customer.ApplicationUserId);
-
                 return RedirectToAction("Index", "Home");
             }
             catch
