@@ -4,10 +4,12 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>All Customers In Your Service Area</h2>
+
+
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Return To Sortable List Here", "Index")
 </p>
 <table class="table">
     <tr>
@@ -33,7 +35,7 @@
             @Html.DisplayNameFor(model => model.ZipCode)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PickUpDay)
+            @Html.DisplayNameFor(model => model.PickUpDay.DayOfWeek)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.PickUpComplete)
@@ -77,11 +79,17 @@
             @Html.DisplayFor(modelItem => item.ZipCode)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.PickUpDay)
+            @Html.DisplayFor(modelItem => item.PickUpDay.DayOfWeek)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.PickUpComplete)
-        </td>
+            @Html.CheckBoxFor(modelItem => item.PickUpComplete)
+        
+        @*<input checked="checked"
+               id="PickUpComplete"
+               name="PickUpComplete"
+               type="checkbox"
+               value="true" />
+            </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.CustomPickUp)
         </td>
@@ -95,9 +103,9 @@
             @Html.DisplayFor(modelItem => item.CustomerBill)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
         </td>
     </tr>
 }

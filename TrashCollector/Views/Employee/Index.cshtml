@@ -4,16 +4,29 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Table Of Your Pick Ups For Today</h2>
+
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find Customers by Day of Week: <input type="text" name="searchString"/>
+            <input type="submit" value="Search" class="btn btn-default" /> |
+        </p>
+    </div>
+</form>
+
+
+
+
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Click here for Full List of Weekly Pick Ups:", "Details", "Employee")
 </p>
 <table class="table">
     <tr>
         @*<th>
-            @Html.DisplayNameFor(model => model.ApplicationUserId)
-        </th>*@
+                @Html.DisplayNameFor(model => model.ApplicationUserId)
+            </th>*@
         <th>
             @Html.DisplayNameFor(model => model.FirstName)
         </th>
@@ -33,7 +46,7 @@
             @Html.DisplayNameFor(model => model.ZipCode)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PickUpDay)
+            @Html.DisplayNameFor(model => model.PickUpDay.DayOfWeek)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.PickUpComplete)
@@ -53,7 +66,8 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+    @foreach (var item in Model)
+    {
     <tr>
         @*<td>
             @Html.DisplayFor(modelItem => item.ApplicationUserId)
@@ -77,13 +91,10 @@
             @Html.DisplayFor(modelItem => item.ZipCode)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.PickUpDay)
+            @Html.DisplayFor(modelItem => item.PickUpDay.DayOfWeek)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.PickUpComplete)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CustomPickUp)
+            @Html.CheckBoxFor(modelItem => item.PickUpComplete)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.PickUpStart)
@@ -95,11 +106,11 @@
             @Html.DisplayFor(modelItem => item.CustomerBill)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
         </td>
     </tr>
-}
+    }
 
 </table>

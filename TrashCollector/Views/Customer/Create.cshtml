@@ -11,6 +11,7 @@
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(model => model.CustomerBill)
+    @Html.HiddenFor(model=> model.PickUpComplete)
 
     <div class="form-horizontal">
         <h4>Customer</h4>
@@ -73,14 +74,14 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.PickUpDayId, "Pick Up Day #", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.PickUpDayId, "Pick Up Day", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.PickUpDayId, new SelectList(Model.PickUpDays, "Id", "DayOfWeek"), "", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.PickUpDayId, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
+        @*<div class="form-group">
             @Html.LabelFor(model => model.PickUpComplete, "Pick Up Complete?", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
@@ -88,7 +89,7 @@
                     @Html.ValidationMessageFor(model => model.PickUpComplete, "", new { @class = "text-danger" })
                 </div>
             </div>
-        </div>
+        </div>*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.CustomPickUp, "Custom Pick Up", htmlAttributes: new { @class = "control-label col-md-2" })

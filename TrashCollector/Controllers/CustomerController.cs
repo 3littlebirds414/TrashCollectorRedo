@@ -5,7 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using TrashCollector.Models;
 using Microsoft.AspNet.Identity;
-
+using System.Net;
+using System.Data.Entity;
 
 namespace TrashCollector.Controllers
 {
@@ -19,11 +20,13 @@ namespace TrashCollector.Controllers
         //}
 
         // GET: Customer
-        public ActionResult Index(int id)
+        public ActionResult Index()
         {
             //Natalie:Easy way to see their bill and amount owed here
+           
             var currentUserId = User.Identity.GetUserId();
-            var customer = db.Customers.Where(c => c.ApplicationUserId == currentUserId).FirstOrDefault();
+            var customer = db.Customers.Where(c => c.ApplicationUserId == currentUserId);
+            //var billing = db.Customers.Where(c => c.CustomerBill).FirstOrDefault();
             //var customerInfo = context.Include(context => context.ApplicationUser);
             //var customerInfo = db.Customers.ToList();
             return View(customer);
@@ -48,30 +51,33 @@ namespace TrashCollector.Controllers
             };
             //Mike's snippet
             //ViewBag.PickUpDayId = new (db.PickUpDays, "PickUpDayId", "DayOfWeek");
-            //Natalie: mine
             return View(customer);
         }
 
         // POST: Customer/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include = "FirstName, LastName, Street, City, State, ZipCode, PickUpDayId, DayOfWeek, PickUpComplete, CustomPickUp, PickUpStart, PickUpEnd, CustomerBill")] Customer customer)
+        public ActionResult Create([Bind(Include = "FirstName, LastName, Street, City, State, ZipCode, PickUpDayId, CustomPickUp, PickUpStart, PickUpEnd, CustomerBill")] Customer customer)
         {
+
             try
             {
+                var DayIs = db.PickUpDays.Where(p => p.Id == customer.PickUpDayId).FirstOrDefault();
+                customer.PickUpDay = DayIs;
+                //customer.DayOfWeek = DayIs.DayOfWeek;
                 customer.ApplicationUserId = User.Identity.GetUserId();
                 db.Customers.Add(customer);
                 db.SaveChanges();
                 ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "UserRole", customer.ApplicationUserId);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Customer");
             }
             catch
             {
-                return View();
+                return View("Index",customer);
             }
         }
 
         // GET: Customer/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
             return View();
         }
@@ -93,25 +99,37 @@ namespace TrashCollector.Controllers
         }
 
         // GET: Customer/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Customer customer = db.Customers.Find(id);
+            if (customer == null)
+            {
+                return HttpNotFound();
+            }
+            return View(customer);
         }
 
         // POST: Customer/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id)
         {
-            try
-            {
-                // TODO: Add delete logic here
 
+                Customer customer = db.Customers.Find(id);
+                db.Customers.Remove(customer);
+                db.SaveChanges();
                 return RedirectToAction("Index");
-            }
-            catch
+        }
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
             {
-                return View();
+                db.Dispose();
             }
+            base.Dispose(disposing);
         }
     }
 }

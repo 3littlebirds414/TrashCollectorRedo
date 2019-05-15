@@ -28,10 +28,9 @@ namespace TrashCollector.Models
         [ForeignKey("PickUpDay")]
         public int PickUpDayId { get; set; }
         public PickUpDay PickUpDay { get; set; }
+
         public IEnumerable <PickUpDay> PickUpDays { get; set;}
     
-
-        public string DayOfWeek { get; set; }
 
         public bool PickUpComplete { get; set; }
         public string CustomPickUp { get; set; }

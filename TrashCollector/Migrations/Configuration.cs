@@ -18,15 +18,15 @@ namespace TrashCollector.Migrations
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method
             //  to avoid creating duplicate seed data.
-            context.PickUpDays.AddOrUpdate(
-               new Models.PickUpDay { DayOfWeek = "Sunday" },
-               new Models.PickUpDay { DayOfWeek = "Monday" },
-               new Models.PickUpDay { DayOfWeek = "Tuesday" },
-               new Models.PickUpDay { DayOfWeek = "Wednesday" },
-               new Models.PickUpDay { DayOfWeek = "Thursday" },
-               new Models.PickUpDay { DayOfWeek = "Friday" },
-               new Models.PickUpDay { DayOfWeek = "Saturday" }
-           );
+            //context.PickUpDays.AddOrUpdate(
+            //   new Models.PickUpDay { DayOfWeek = "Sunday" },
+            //   new Models.PickUpDay { DayOfWeek = "Monday" },
+            //   new Models.PickUpDay { DayOfWeek = "Tuesday" },
+            //   new Models.PickUpDay { DayOfWeek = "Wednesday" },
+            //   new Models.PickUpDay { DayOfWeek = "Thursday" },
+            //   new Models.PickUpDay { DayOfWeek = "Friday" },
+            //   new Models.PickUpDay { DayOfWeek = "Saturday" }
+            //);
         }
     }
 }
