@@ -133,20 +133,20 @@ namespace TrashCollector.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Customer customer = db.Customers.Find(id);
-            if (customer == null)
+            Employee employee = db.Employees.Find(id);
+            if (employee == null)
             {
                 return HttpNotFound();
             }
-            return View(customer);
+            return View(employee);
         }
 
         // POST: Employee/Delete/5
         [HttpPost]
         public ActionResult DeleteConfirmed(int id)
         {
-            Customer customer = db.Customers.Find(id);
-            db.Customers.Remove(customer);
+            Employee employee = db.Employees.Find(id);
+            db.Employees.Remove(employee);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -159,11 +159,24 @@ namespace TrashCollector.Controllers
             base.Dispose(disposing);
         }
 
-        public ActionResult Map1(int? id)
-        {
-            ViewBag.Key = Keys.GOOGLE_MAP_KEY;
+        //public ActionResult Map1(int? id)
+        //{
+        //    ViewBag.Key = Keys.GOOGLE_MAP_KEY;
 
-            return View();
+        //    return View();
+        //}
+        
+        public ActionResult UpdateBill(Customer customer)
+        {
+            customer.CustomerBill += 10;
+            return View(customer);
+
+        }
+
+        public ActionResult Map(int? id)
+        {
+            Customer customer = db.Customers.Find(id);
+            return View(customer);
         }
     }
 }

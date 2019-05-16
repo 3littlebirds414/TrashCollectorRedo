@@ -1,9 +1,11 @@
 ﻿
+@model TrashCollector.Models.Customer
+
 @{
-    ViewBag.Title = "Map1";
+    ViewBag.Title = "Map";
 }
 
-<h2>Map1</h2>
+<h2>How do I get there?</h2>
 
 <style>
     /* Always set the map height explicitly to define the size of the div
@@ -38,4 +40,14 @@
         <script src="https://maps.googleapis.com/maps/api/js?key=@ViewBag.Keys&callback=initMap"
                 async defer></script>
     </div>
+    @*@{
+            string address = "https://www.google.com/maps/embed/v1/place?key=AIzaSyAuzzUVbumsRjeMkAXRleluKFBXkWeTmzo&q=" + Model.Street.Replace(' ', '+') + "+" + Model.City + "+" + Model.State + "+" + Model.Zip;
+
+            <iframe width="600"
+                    height="450"
+                    Zoom="12"
+                    frameborder="0" style="border:0"
+                    src="@address" allowfullscreen></iframe>
+        }*@
 </body>
+

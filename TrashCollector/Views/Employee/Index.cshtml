@@ -1,4 +1,8 @@
-﻿@model IEnumerable<TrashCollector.Models.Customer>
+﻿@*@{
+    Layout = "~/Views/Shared/_LayoutEmployee.cshtml";
+}*@
+
+@model IEnumerable<TrashCollector.Models.Customer>
 
 @{
     ViewBag.Title = "Index";
@@ -9,7 +13,7 @@
 <form asp-action="Index" method="get">
     <div class="form-actions no-color">
         <p>
-            Find Customers by Day of Week: <input type="text" name="searchString"/>
+            Find Customers by Day of Week: <input type="text" name="searchString" />
             <input type="submit" value="Search" class="btn btn-default" /> |
         </p>
     </div>
@@ -68,49 +72,55 @@
 
     @foreach (var item in Model)
     {
-    <tr>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.ApplicationUserId)
-        </td>*@
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Street)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.City)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.State)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ZipCode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PickUpDay.DayOfWeek)
-        </td>
-        <td>
-            @Html.CheckBoxFor(modelItem => item.PickUpComplete)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PickUpStart)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PickUpEnd)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CustomerBill)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-        </td>
-    </tr>
+        <tr>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.ApplicationUserId)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Street)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.State)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ZipCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PickUpDay.DayOfWeek)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PickUpComplete)
+                @*<input checked="checked"
+                           id="PickUpComplete"
+                           name="PickUpComplete"
+                           type="checkbox"
+                           value="true" />
+                    <input type="submit" value="Submit" class="btn btn-default" />*@
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PickUpStart)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PickUpEnd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerBill)
+            </td>
+            <td>
+                @Html.ActionLink("Confirm Pickup", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Update Bill", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Map", "Map", new { id = item.Id })
+            </td>
+        </tr>
     }
 
 </table>
