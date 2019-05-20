@@ -39,6 +39,7 @@ namespace TrashCollector.Controllers
                 var currentUserId = User.Identity.GetUserId();
                 var me = db.Employees.Where(e => e.ApplicationUserId == currentUserId).FirstOrDefault();
                 var zoneCustomers = db.Customers.Where(c => c.ZipCode == me.ZipCode && c.PickUpDay.DayOfWeek == searchString).Include(c => c.PickUpDay).ToList();
+              
                 return View(zoneCustomers);
 
             }
@@ -68,6 +69,7 @@ namespace TrashCollector.Controllers
             var currentUserId = User.Identity.GetUserId();
             var me = db.Employees.Where(e => e.ApplicationUserId == currentUserId).FirstOrDefault();
             var myCustomers = db.Customers.Where(z => z.ZipCode==me.ZipCode).Include(c => c.PickUpDay).ToList();
+          
             // var ListOnThisDay = db.Customers.Where(p => p.PickUpDay == me.ThisDay).ToList();
             return View(myCustomers);
         }
@@ -166,10 +168,12 @@ namespace TrashCollector.Controllers
         //    return View();
         //}
         
-        public ActionResult UpdateBill(Customer customer)
+        public ActionResult UpdateBill(int? id)
         {
+            Customer customer = db.Customers.Find(id);
             customer.CustomerBill += 10;
-            return View(customer);
+            db.SaveChanges();
+            return RedirectToAction("Index");
 
         }
 

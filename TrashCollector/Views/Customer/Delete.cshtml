@@ -1,23 +1,23 @@
 ﻿@model TrashCollector.Models.Customer
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Delete";
 }
 
-<h2>Details</h2>
+<h2>Delete</h2>
 
-
+<h3>Are you sure you want to delete your account?  What are you going to do with all that trash?</h3>
 <div>
     <h4>Customer</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
+        @*<dt>
             @Html.DisplayNameFor(model => model.ApplicationUserId)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.ApplicationUserId)
-        </dd>
+        </dd>*@
 
         <dt>
             @Html.DisplayNameFor(model => model.FirstName)
@@ -68,11 +68,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.PickUpDay)
+            @Html.DisplayNameFor(model => model.PickUpDayId)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.PickUpDay)
+            @Html.DisplayFor(model => model.PickUpDayId)
         </dd>
 
         <dt>
@@ -120,10 +120,9 @@
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
-    <div class="form-actions no-color">
-        @*<input type="submit" value="Delete" class="btn btn-default" /> |*@
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-        @Html.ActionLink("Back to List", "Index")
-    </div>
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
     }
 </div>

@@ -195,6 +195,14 @@
     <Compile Include="Migrations\201905141841153_remove DayOfWeek from Customer.Designer.cs">
       <DependentUpon>201905141841153_remove DayOfWeek from Customer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905171847256_thing.cs" />
+    <Compile Include="Migrations\201905171847256_thing.Designer.cs">
+      <DependentUpon>201905171847256_thing.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905201809313_UpdateBillToCurrency.cs" />
+    <Compile Include="Migrations\201905201809313_UpdateBillToCurrency.Designer.cs">
+      <DependentUpon>201905201809313_UpdateBillToCurrency.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -270,6 +278,12 @@
     <Content Include="Views\Employee\Index.cshtml" />
     <Content Include="Views\Employee\Edit.cshtml" />
     <Content Include="Views\Employee\Map.cshtml" />
+    <Content Include="Views\Employee\MapGeolocator.cshtml" />
+    <Content Include="Views\Customer\Edit.cshtml" />
+    <Content Include="Views\Customer\EditExtraPickup.cshtml" />
+    <Content Include="Views\Customer\EditSuspendServices.cshtml" />
+    <Content Include="Views\Customer\Delete.cshtml" />
+    <Content Include="Views\Customer\CustomerBillView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -302,6 +316,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905141841153_remove DayOfWeek from Customer.resx">
       <DependentUpon>201905141841153_remove DayOfWeek from Customer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905171847256_thing.resx">
+      <DependentUpon>201905171847256_thing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905201809313_UpdateBillToCurrency.resx">
+      <DependentUpon>201905201809313_UpdateBillToCurrency.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
