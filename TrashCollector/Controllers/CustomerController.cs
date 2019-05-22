@@ -49,8 +49,7 @@ namespace TrashCollector.Controllers
         }
 
         // GET: Customer/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpGet]
         public ActionResult Create()
         {
             var WeekDays = db.PickUpDays.ToList();
@@ -65,7 +64,7 @@ namespace TrashCollector.Controllers
 
         // POST: Customer/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include = "FirstName, LastName, Street, City, State, ZipCode, PickUpDayId, CustomPickUp, PickUpStart, PickUpEnd, CustomerBill")] Customer customer)
+        public ActionResult Create([Bind(Include = "Id, FirstName, LastName, Street, City, State, ZipCode, PickUpDayId, CustomPickUp, PickUpStart, PickUpEnd, CustomerBill, ApplicationUserId")] Customer customer)
         {
 
             try
@@ -86,6 +85,7 @@ namespace TrashCollector.Controllers
         }
 
        // GET: Customer/Edit/5
+       [HttpGet]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -159,35 +159,23 @@ namespace TrashCollector.Controllers
             }
             base.Dispose(disposing);
         }
-        public ActionResult EditExtraPickup()
+        public ActionResult EditExtraPickup(int id)
         {
-            var userResult = User.Identity.GetUserId();
-            int? id = db.Customers.Include(x => x.PickUpDay).Where(x => userResult == x.ApplicationUserId).Select(x => x.Id).SingleOrDefault();
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var days = db.PickUpDays.ToList();
-            Customer customer = db.Customers.Find(id);
-            {
-                customer.PickUpDays = days;
-            };
-            if (customer == null)
-            {
-                return HttpNotFound();
-            }
-            return View(customer);
+            var userIs = User.Identity.GetUserId();
+            //Customer currentUser = db.Customers.Include(p => p.PickUpDay).Where(x => userIs == x.ApplicationUserId).FirstOrDefault()
+            Customer currentUser = db.Customers.Include(p => p.PickUpDay).Where(x => userIs == x.ApplicationUserId).FirstOrDefault();
+            return View(currentUser);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditExtraPickup([Bind(Include = "FirstName, LastName, Street, City, State, ZipCode, PickUpDayId, CustomPickUp, PickUpStart, PickUpEnd, CustomerBill")] Customer customer)
+        public ActionResult EditExtraPickup([Bind(Include = "Id, FirstName, LastName, Street, City, State, ZipCode, PickUpDayId, CustomPickUp, PickUpStart, PickUpEnd, CustomerBill, ApplicationUserId")] Customer customer)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(customer).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+               // return RedirectToAction("Index");
             }
             return View(customer);
         }

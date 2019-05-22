@@ -168,11 +168,20 @@ namespace TrashCollector.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
                     await this.UserManager.AddToRoleAsync(user.Id, model.UserRole);
-                    return RedirectToAction("Index", "Home");
+                    if (model.UserRole == "Customer")
+                    {
+                        return RedirectToAction("Create", "Customer");
+                    }
+                    if (model.UserRole == "Employee")
+                    {
+
+                        return RedirectToAction("Create", "Employee");
+                    }
                 }
-                //Natalie: added the code below
-                ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin")).ToList(), "Name", "Name");
                 AddErrors(result);
+                //Natalie: added the code below
+                //ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin")).ToList(), "Name", "Name");
+                //AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form

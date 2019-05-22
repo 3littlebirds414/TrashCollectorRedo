@@ -38,10 +38,10 @@ namespace TrashCollector.Models
             return new ApplicationDbContext();
         }
 
-        internal object Include(Func<object, object> p)
-        {
-            throw new NotImplementedException();
-        }
+        //internal object Include(Func<object, object> p)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
  
 }
