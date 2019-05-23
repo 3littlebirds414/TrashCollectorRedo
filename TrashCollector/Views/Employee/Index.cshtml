@@ -98,13 +98,23 @@
             @Html.DisplayFor(modelItem => item.PickUpDay.DayOfWeek)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.PickUpComplete)
+            <div class="form-group">
+                @*@Html.LabelFor(modelItem => item.PickUpComplete, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(modelItem => item.PickUpComplete)
+                        @Html.ValidationMessageFor(modelItem => item.PickUpComplete, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            @*@Html.DisplayFor(modelItem => item.PickUpComplete)*@
             @*<input checked="checked"
-                   id="PickUpComplete"
-                   name="PickUpComplete"
-                   type="checkbox"
-                   value="true" />
-            <input type="submit" value="Submit" class="btn btn-default" />*@
+               id="PickUpComplete"
+               name="PickUpComplete"
+               type="checkbox"
+               value="true" />
+        <input type="submit" value="Submit" class="btn btn-default" />*@
         </td>
         <th>
             @Html.DisplayFor(modelItem => item.CustomPickUp)
@@ -120,7 +130,7 @@
         </td>
         <td>
             @*@Html.ActionLink("Confirm Pickup", "Details", new { id = item.Id }) |*@
-            @Html.ActionLink("Pick Up Complete Update Bill", "UpdateBill", new { id = item.Id }, null) |
+            @*@Html.ActionLink("Pick Up Complete Update Bill", "UpdateBill", new { id = item.Id }, null)*@ |
             @Html.ActionLink("Map", "Map", new { id = item.Id })
         </td>
     </tr>

@@ -108,24 +108,22 @@ namespace TrashCollector.Controllers
         public ActionResult Edit(int id)
         {
             ViewBag.PickUpDayId = new SelectList(db.PickUpDays, "PickUpDayId", "DayOfWeek");
-
-            return View();
+            var thing = db.Customers.Where(s => s.Id == id).Include(r => r.PickUpDay).FirstOrDefault();
+            thing.PickUpDays = db.PickUpDays.ToList();
+            return View(thing);
         }
 
         // POST: Employee/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, Employee employee)
+        public ActionResult Edit(int id, Customer customer)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
-
+                db.Entry(customer).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            return View("Index");
         }
 
         // GET: Employee/Delete/5

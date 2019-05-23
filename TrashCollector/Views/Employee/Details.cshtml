@@ -7,15 +7,16 @@
 <h2>All Customers In Your Service Area</h2>
 
 
-
 <p>
     @Html.ActionLink("Return To Sortable List Here", "Index")
 </p>
+
+
 <table class="table">
     <tr>
         @*<th>
-            @Html.DisplayNameFor(model => model.ApplicationUserId)
-        </th>*@
+                @Html.DisplayNameFor(model => model.ApplicationUserId)
+            </th>*@
         <th>
             @Html.DisplayNameFor(model => model.FirstName)
         </th>
@@ -37,9 +38,9 @@
         <th>
             @Html.DisplayNameFor(model => model.PickUpDay.DayOfWeek)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PickUpComplete)
-        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.PickUpComplete)
+            </th>*@
         <th>
             @Html.DisplayNameFor(model => model.CustomPickUp)
         </th>
@@ -55,63 +56,64 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-       
+    @foreach (var item in Model)
+    {
+        <tr>
 
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @*<td>
-            @Html.DisplayFor(modelItem => item.ApplicationUserId)
-        </td>*@
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Street)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.City)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.State)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ZipCode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PickUpDay.DayOfWeek)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PickUpComplete)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CustomPickUp)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PickUpStart)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PickUpEnd)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CustomerBill)
-        </td>
-        @*<div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>*@
 
-       
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-        </td>
-    </tr>
-}
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.ApplicationUserId)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Street)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.State)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ZipCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PickUpDay.DayOfWeek)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.PickUpComplete)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomPickUp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PickUpStart)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PickUpEnd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerBill)
+            </td>
+            @*<div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </div>*@
+
+
+            <td>
+                @Html.ActionLink("Edit Customer", "Edit", new { id = item.Id }) |
+                @*@Html.ActionLink("Details", "Details", new { id = item.Id }) |*@
+                @Html.ActionLink("Delete Customer", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
 
 </table>
