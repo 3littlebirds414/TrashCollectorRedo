@@ -166,13 +166,16 @@ namespace TrashCollector.Controllers
         //    return View();
         //}
         
-        public ActionResult UpdateBill(int? id)
+        public ActionResult UpdateBill(int id)
         {
             Customer customer = db.Customers.Find(id);
+            //customer.CustomerBill += 10;
+            
+            //return RedirectToAction("Index");
             customer.CustomerBill += 10;
             db.SaveChanges();
             return RedirectToAction("Index");
-
+            //return View (customer);
         }
 
         public ActionResult Map(int? id)
