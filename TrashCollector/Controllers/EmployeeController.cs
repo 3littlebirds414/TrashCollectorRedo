@@ -127,26 +127,27 @@ namespace TrashCollector.Controllers
         }
 
         // GET: Employee/Delete/5
-        public ActionResult Delete(int? id)
+        [HttpGet]
+        public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Employee employee = db.Employees.Find(id);
-            if (employee == null)
-            {
-                return HttpNotFound();
-            }
-            return View(employee);
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+            Customer customer = db.Customers.Find(id);
+            //if (customer == null)
+            //{
+            //    return HttpNotFound();
+            //}
+            return View(customer);
         }
 
         // POST: Employee/Delete/5
         [HttpPost]
         public ActionResult DeleteConfirmed(int id)
         {
-            Employee employee = db.Employees.Find(id);
-            db.Employees.Remove(employee);
+            Customer customer = db.Customers.Find(id);
+            db.Customers.Remove(customer);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
